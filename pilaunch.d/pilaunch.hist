@@ -1,0 +1,15 @@
+xbindkeys_config
+chromium
+pidgin
+xbindkeys_show
+net
+pkill tint2
+tint2
+wicd-cli
+wicd-client
+lxappearance
+gmpc
+superswitcher
+emacs ~/misc/dev/launcher/pilaunch/pilaunch.py
+urxvt
+susplock.py
