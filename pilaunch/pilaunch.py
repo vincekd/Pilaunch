@@ -55,7 +55,7 @@ class pilauncher:
                 self.acpi.hide()
                 self.acpi = None
             expr = self.entry.get_text()
-            ase = re.split("[\*\-\/\+\(\)]", expr)
+            ase = re.split("[\*\-\/\+\(\)\%]", expr)
             for a in ase:
                 if "." not in a and a != "":
                     expr = expr.replace(a, a+".0")
