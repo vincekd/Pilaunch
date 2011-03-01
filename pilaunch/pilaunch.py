@@ -98,14 +98,19 @@ class pilauncher:
                 histFile.append(l.strip())
             if val in histFile:
                 histFile.remove(val)
+            while len(histFile) >= 50:
+                histFile.pop(0)
             histFile.append(val)
             f.close()
             f = open(self.hist, "w")
-            i = 1
-            while i < len(histFile) and i < 51:
-                f.write(histFile[i] + "\n")
-                i = i + 1
+            for line in histFile:
+                f.write(line + "\n")
             f.close()
+            # i = 0
+            # while i < len(histFile) and i < 50:
+            #     f.write(histFile[i] + "\n")
+            #     i = i + 1
+            # f.close()
             
         if piconfig.saveHistory == True:
             self.saveHist()
