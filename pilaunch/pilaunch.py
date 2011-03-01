@@ -13,7 +13,7 @@ sys.path.append("/usr/share/pilaunch/")
 try:
     import piconfig
 except ImportError:
-    print "Add piconfig file to ~/.config/pilaunch/ or /usr/share/pilaunch/"
+    print "Missing file piconfig.py.  Add piconfig.py file to ~/.config/pilaunch/ or /usr/share/pilaunch/"
 if piconfig.mpd == True:
     from mpd import MPDClient, MPDError
     from socket import error as SocketError
