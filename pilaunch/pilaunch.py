@@ -101,9 +101,8 @@ class pilauncher:
             histFile.append(val)
             f.close()
             f = open(self.hist, "w")
-            #TODO- not working correctly
-            i = 0
-            while i < len(histFile) and i < 50:
+            i = 1
+            while i < len(histFile) and i < 51:
                 f.write(histFile[i] + "\n")
                 i = i + 1
             f.close()
