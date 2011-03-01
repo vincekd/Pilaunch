@@ -9,7 +9,11 @@ import sys
 import re
 import shutil
 sys.path.append(os.path.expanduser("~/.config/pilaunch/"))
-import piconfig
+sys.path.append("/usr/share/pilaunch/")
+try:
+    import piconfig
+except ImportError:
+    print "Add piconfig file to ~/.config/pilaunch/ or /usr/share/pilaunch/"
 if piconfig.mpd == True:
     from mpd import MPDClient, MPDError
     from socket import error as SocketError
