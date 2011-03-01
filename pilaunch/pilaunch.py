@@ -156,6 +156,7 @@ class pilauncher:
                     self.window.set_focus(self.rbox)
                     self.entry.set_text(self.tree.get_value(self.nItr, 0))
             else:
+                self.window.set_focus(self.rbox)
                 if self.current == True:
                     return
                 if self.artist == True:
@@ -238,7 +239,7 @@ class pilauncher:
                 self.getDatabase()
             else:
                 self.getHist()
-                #self.rbox.scroll_to_cell('0')
+                self.rbox.scroll_to_cell('0')
                 self.rbox.set_cursor('0', focus_column=None)
                 size = self.window.get_default_size()
                 self.window.resize(size[0], size[1])
@@ -282,6 +283,7 @@ class pilauncher:
             if self.window.get_focus() != self.entry and self.music == False:
                 self.window.set_focus(self.entry)
                 self.entry.set_position(self.entry.get_text_length())
+
 
     #gets history if present
     def getHist(self):
@@ -397,10 +399,8 @@ class pilauncher:
                 self.tree.append([k])
             self.prevArr = []
             self.scrollbox.show()
-            #self.rbox.scroll_to_cell('0', column=None)
-            #self.rbox.row_activated('2', self.col)
+            self.rbox.scroll_to_cell('0', column=None)
             self.rbox.set_cursor('0', focus_column=None)
-            #self.rbox.scroll_to_point(0,0)
             self.window.set_focus(self.rbox)
             self.window.set_focus(self.entry)
             self.entry.set_position(self.entry.get_text_length())
@@ -440,7 +440,6 @@ class pilauncher:
                         self.tree.append([s['title']])
                     self.list[s['title']] = s['id']
                     count = count + 1
-                self.lbox.hide()
             else:
                 self.current = False
                 self.artist = True
@@ -458,7 +457,8 @@ class pilauncher:
                     self.rbox.scroll_to_cell(str(lartist), column=None)
         elif self.album == True:
             if self.nItr != None:
-                self.curartist = self.tree.get_value(self.nItr, 0)
+                #self.curartist = self.tree.get_value(self.nItr, 0)
+                self.curartist = self.tree.get_value(self.tree.get_iter_from_string(str(self.rbox.get_cursor()[0][0])), 0)
             albums = self.mclient.list("album", self.curartist)
             self.tree.clear()
             for al in albums:
@@ -466,7 +466,8 @@ class pilauncher:
                     self.tree.append([al])
         elif self.tracks == True:
             if self.nItr != None:
-                self.curalbum = self.tree.get_value(self.nItr, 0)
+                #self.curalbum = self.tree.get_value(self.nItr, 0)
+                self.curalbum = self.tree.get_value(self.tree.get_iter_from_string(str(self.rbox.get_cursor()[0][0])), 0)
             tracks = self.mclient.find("album", self.curalbum)
             self.tree.clear()
             for t in tracks:
@@ -509,17 +510,20 @@ class pilauncher:
             self.destroy(self, data=None)
 
         elif self.artist == True:
-            artist = self.tree.get_value(self.nItr, 0)
+            #artist = self.tree.get_value(self.nItr, 0)
+            artist = self.tree.get_value(self.tree.get_iter_from_string(str(self.rbox.get_cursor()[0][0])), 0)
             self.mclient.add(artist)
             self.mclient.play()
 
         elif self.album == True:
-            album = self.tree.get_value(self.nItr, 0)
+            #album = self.tree.get_value(self.nItr, 0)
+            album = self.tree.get_value(self.tree.get_iter_from_string(str(self.rbox.get_cursor()[0][0])), 0)
             self.mclient.findadd("album", album)
             self.mclient.play()
 
         elif self.tracks == True:
-            track = self.tree.get_value(self.nItr, 0)
+            #track = self.tree.get_value(self.nItr, 0)
+            track = self.tree.get_value(self.tree.get_iter_from_string(str(self.rbox.get_cursor()[0][0])), 0)
             self.mclient.findadd("title", track)
             self.mclient.play()
 
@@ -612,6 +616,7 @@ class pilauncher:
         #right box
         self.tree = gtk.ListStore(str)
         self.rbox = gtk.TreeView(self.tree)
+        self.rbox.set_enable_search(True)
         self.render = gtk.CellRendererText()
         self.col = gtk.TreeViewColumn()
         self.rbox.append_column(self.col)
@@ -619,6 +624,7 @@ class pilauncher:
         self.col.add_attribute(self.render, 'text', 0)
         self.col.set_spacing(0)
         self.rbox.set_headers_visible(False)
+        #self.rbox.set(horizontal-separators, 0)
         self.scrollbox = gtk.ScrolledWindow(hadjustment=None, vadjustment=None)
         self.scrollbox.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         self.scrollbox.set_size_request(150, 80)
