@@ -62,7 +62,7 @@ class pilauncher:
             ase = re.split("[\*\-\/\+\(\)\%]", expr)
             for a in ase:
                 if "." not in a and a != "":
-                    expr = expr.replace(a, a+".0")
+                    expr = expr.replace(a, a + ".0")
                     while a in ase:
                         ase.remove(a)
             try:

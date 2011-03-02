@@ -30,9 +30,9 @@ preferredApps = ["chromium", "urxvt", "pidgin", "xbindkeys_config", "google-chro
 "lxappearance", "wicd-curses", "emacs", "susplock.py", "thunar", "ncmpcpp", "gvim",
 "firefox"]
 
-#whether or not to use connect to mpd
+#whether or not to connect to mpd
 mpd = False
-mpdcon = {'host':"/home/$USER/.mpd/socket", 'port':"6600"}
+mpdcon = {'host':"localhost", 'port':"6600"} #or "/path/to/unix/socket" for 'host'
 
 #Write history to hd- may make marginally slower, if you don't consider setting a hook
 # in order to save the file before shutdown, command below
