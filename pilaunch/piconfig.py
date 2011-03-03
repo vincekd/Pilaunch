@@ -4,10 +4,12 @@ import os
 
 # Usage:
 # Begin searching for commands: use up/down arrow keys to scroll, enter executes, left 
-# arrow key will move selected items text to textbox for editing.  To enter different mode 
+# arrow key will move selected items text to textbox for editing.  Alt saves session history
+# to permanent file in "~/.config/pilaunch/pilaunch.hist". To enter different mode 
 # (e.g. calc, music, url, etc) enter keyword followed by space.  Backspace will exit special
 # mode. In music, tab switches between playlist, artists, and options.  Delete clears 
 # playlist and end deletes single item from playlist.  Enter adds selected to end of playlist.
+# Left/right navigate through artists' albums and tracks.
 
 #desktop defaults
 browser = "chromium"

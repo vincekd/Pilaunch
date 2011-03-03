@@ -27,6 +27,11 @@ class pilauncher:
 
     #destroy function
     def destroy(self, widget, data=None):
+        if self.connected == True:
+            try:
+                self.mclient.disconnect()
+            except:
+                print "failed to disconnect from mpd"
         gtk.main_quit()
             
     #function to run selection or text input
@@ -154,8 +159,8 @@ class pilauncher:
                     self.getMusic()
 
         elif event.keyval==65307: #escape
-            if self.music == True:
-                self.mclient.disconnect()
+            #if self.music == True:
+                #self.mclient.disconnect()
             self.destroy(widget, data=None)
 
         elif event.keyval==65363: #right
@@ -365,6 +370,17 @@ class pilauncher:
                 self.sudo.show()
                 query = ""
                 self.entry.set_text("")
+                self.mclient = MPDClient()
+                self.connected = False
+                self.delcur = False
+                if self.connected == False:
+                    try:
+                        self.mclient.connect(piconfig.mpdcon['host'], piconfig.mpdcon['port'])
+                        self.connected = True
+                    except:
+                        self.connected = False
+                        print "failed to connect"
+                        return
                 self.getMusic()
                 return
         #need this here for posterity
@@ -419,17 +435,6 @@ class pilauncher:
         self.nItr = self.tree.get_iter_root()
 
     def getMusic(self):
-        self.mclient = MPDClient()
-        self.connected = False
-        self.delcur = False
-        if self.connected == False:
-            try:
-                self.mclient.connect(piconfig.mpdcon['host'], piconfig.mpdcon['port'])
-                self.connected = True
-            except:
-                self.connected = False
-                print "failed to connect"
-                return
         if self.current == True:
             playlist =  self.mclient.playlistinfo()
             if len(playlist) > 0:
@@ -514,7 +519,7 @@ class pilauncher:
             songid = self.list[songTitle]
             self.mclient.playid(songid)
             self.music = False
-            self.mclient.disconnect()
+            #self.mclient.disconnect()
             self.destroy(self, data=None)
 
         elif self.artist == True:
@@ -598,6 +603,7 @@ class pilauncher:
         self.websearch = False
         self.term = False
         self.music = False
+        self.connected = False
 
         #Env variables
         self.info = os.path.expanduser("~/.config/pilaunch/pilaunchextra.py")
