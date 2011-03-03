@@ -15,7 +15,9 @@ import os
 browser = "chromium"
 searchengine = "http://www.google.com/search?q="
 editor = "emacs"
-path = os.path.expandvars("$PATH") # + ":/home/vince/.scripts
+path = os.path.expandvars("$PATH")
+#uncomment for path with scripts:
+#path = os.path.expandvars("$PATH") + ":/home/" + os.path.expandvars("$USER") + "/.scripts"
 terminal = "urxvt"
 
 
