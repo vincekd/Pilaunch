@@ -468,6 +468,7 @@ class pilauncher:
                 if self.hasFormer == True:
                     self.rbox.set_cursor(str(self.lartist), focus_column=None)
                     self.rbox.scroll_to_cell(str(lartist), column=None)
+            self.rbox.scroll_to_cell('0', column=None)
         elif self.album == True:
             if self.nItr != None:
                 #self.curartist = self.tree.get_value(self.nItr, 0)
@@ -477,6 +478,7 @@ class pilauncher:
             for al in albums:
                 if al != "":
                     self.tree.append([al])
+            self.rbox.scroll_to_cell('0', column=None)
         elif self.tracks == True:
             if self.nItr != None:
                 #self.curalbum = self.tree.get_value(self.nItr, 0)
@@ -485,6 +487,7 @@ class pilauncher:
             self.tree.clear()
             for t in tracks:
                 self.tree.append([t['title']])
+            self.rbox.scroll_to_cell('0', column=None)
         elif self.options == True:
             self.tree.clear()
             options = self.mclient.status()
@@ -504,6 +507,7 @@ class pilauncher:
                 self.tree.append(["Toggle single [off]"])
             else:
                 self.tree.append(["Toggle single [on]"])
+            self.rbox.scroll_to_cell('0', column=None)
         size = self.window.get_default_size()
         self.window.resize(size[0], size[1]+50)
         self.lbox.hide()
