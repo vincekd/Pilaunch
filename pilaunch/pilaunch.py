@@ -310,6 +310,8 @@ class pilauncher:
                 file.close()
                 self.scrollbox.show()
                 self.window.set_focus(self.rbox)
+                self.rbox.set_cursor('0', focus_column=None)
+                self.rbox.scroll_to_cell('0', column=None, use_align=True, row_align=1, col_align=1)
                 self.window.set_focus(self.entry)
                 self.entry.set_position(self.entry.get_text_length())
                 self.nItr = self.tree.get_iter_root()
@@ -672,6 +674,7 @@ class pilauncher:
         self.box.show()
         #show window
         self.window.show()
+        #self.window.set_focus(self.rbox)
         self.window.set_focus(self.entry)
         self.entry.set_position(0)
         self.getHist()
