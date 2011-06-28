@@ -32,6 +32,8 @@ class pilauncher:
                 self.mclient.disconnect()
             except:
                 print "failed to disconnect from mpd"
+        if piconfig.saveHistory == True:
+            self.saveHist()
         gtk.main_quit()
             
     #function to run selection or text input
@@ -121,8 +123,6 @@ class pilauncher:
             #     i = i + 1
             # f.close()
             
-        if piconfig.saveHistory == True:
-            self.saveHist()
 
         if own == False:
             subprocess.Popen(val, shell=True).pid
@@ -588,7 +588,7 @@ class pilauncher:
         self.window.set_modal(True)
         self.window.stick()
         self.window.set_decorated(False)
-        self.window.set_position(gtk.WIN_POS_CENTER)
+        self.window.set_position(gtk.WIN_POS_CENTER_ALWAYS)
         self.window.set_events(gtk.gdk.KEY_RELEASE_MASK)
         self.window.set_events(gtk.gdk.KEY_PRESS_MASK)
         self.window.present()
