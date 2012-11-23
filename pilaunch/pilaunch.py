@@ -66,16 +66,14 @@ class pilauncher:
                 self.acpi.hide()
                 self.acpi = None
             expr = self.entry.get_text()
-            ase = re.split("[\*\-\/\+\(\)\%]", expr)
-            for a in ase:
-                if "." not in a and a != "":
-                    expr = expr.replace(a, a + ".0")
-                    while a in ase:
-                        ase.remove(a)
-            try:
-                expr =  eval(expr)
-            except:
-                expr = "Expression not well formed"
+            out = "Expression not well formed"
+            if re.search("[a-zA-Z]", expr) is None:
+                expr = re.sub("\s+", "", expr)
+                expr = re.sub(r'([0-9\.]+)', r'float(\1)', expr)
+                try:
+                    expr =  eval(expr)
+                except:
+                    expr = "Expression not well formed"
             self.acpi = gtk.Label(expr)
             self.bbox.pack_start(self.acpi, False, False, 5)
             self.acpi.show()
